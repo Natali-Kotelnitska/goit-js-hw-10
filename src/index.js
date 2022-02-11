@@ -16,7 +16,8 @@ inputRef.placeholder = 'Enter country name';
 inputRef.addEventListener('input', debounce(onCountrySearch, DEBOUNCE_DELAY));
 
 function onCountrySearch(e) {
-  const country = e.target.value;
+  const country = e.target.value.trim();
+  console.log(country);
   clearCardContainer();
   if (country.length > 0) {
     fetchCountries(country)
@@ -24,8 +25,6 @@ function onCountrySearch(e) {
       .catch(error =>
         Notiflix.Notify.failure('Oops, there is no country with that name', { clickToClose: true }),
       );
-    // .then(countries => renderCountriesList(countries))
-    // .catch(error => console.log(error));
   }
 }
 
