@@ -14,7 +14,7 @@
       <li class='country-description__item'><b class='country-description__title'>Languages:</b>
         <ul class='languages-list'>
           {{#each languages}}
-            <li class='languages-list__item'>{{this}}, </li>
+            <li class='languages-list__item'>{{#if @last}}{{this}} {{else}} {{this}}, {{/if}} </li>
           {{/each}}
         </ul>
       </li>
