@@ -1,33 +1,48 @@
-import './css/styles.css';
 import debounce from 'lodash.debounce';
+import Notiflix from 'notiflix';
+import './css/styles.css';
 import { fetchCountries } from './js/fetchCountries.js';
+import countriesListTpl from './templates/countries-list.hbs';
+import countryInfoTpl from './templates/country-info.hbs';
 
 const DEBOUNCE_DELAY = 300;
 
 const inputRef = document.getElementById('search-box');
-const countriesList = document.querySelector('.country-list');
+const countriesListRef = document.querySelector('.country-list');
+const countryInfoRef = document.querySelector('.country-info');
+
+inputRef.placeholder = 'Enter country name';
 
 inputRef.addEventListener('input', debounce(onCountrySearch, DEBOUNCE_DELAY));
 
 function onCountrySearch(e) {
   const country = e.target.value;
-
-  fetchCountries(country)
-    .then(countries => renderCountriesList(countries))
-    .catch(error => console.log(error));
+  clearCardContainer();
+  if (country.length > 0) {
+    fetchCountries(country)
+      .then(renderCountriesList)
+      .catch(error =>
+        Notiflix.Notify.failure('Oops, there is no country with that name', { clickToClose: true }),
+      );
+    // .then(countries => renderCountriesList(countries))
+    // .catch(error => console.log(error));
+  }
 }
 
 //новий файл - ф-я Render
 function renderCountriesList(countries) {
-  const markup = countries
-    .map(country => {
-      return `<li>
-      <p><b>name</b>: ${country.name.official}</p>
-          <p><b>capital</b>: ${country.capital}</p>
-          <p><b>population</b>: ${country.population}</p>
-          <p><b>languages</b>: ${country.languages}</p>
-        </li>`;
-    })
-    .join('');
-  countriesList.innerHTML = markup;
+  if (countries.length > 10) {
+    Notiflix.Notify.info('Too many matches found. Please enter a more specific name.', {
+      clickToClose: true,
+    });
+  } else if (countries.length === 1) {
+    countryInfoRef.insertAdjacentHTML('beforeend', countryInfoTpl(countries));
+  } else {
+    countriesListRef.insertAdjacentHTML('beforeend', countriesListTpl(countries));
+  }
+}
+
+function clearCardContainer() {
+  countryInfoRef.innerHTML = '';
+  countriesListRef.innerHTML = '';
 }

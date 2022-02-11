@@ -1,6 +1,15 @@
 * {
   box-sizing: border-box;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
@@ -8,6 +17,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fafafa;
+  /* background-color: rgb(118, 158, 233); */
+  background-image: url('../images/triangles-g27a02e904_1280-min.png');
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #212121;
   line-height: 1.5;
 }
@@ -17,4 +30,64 @@ body {
   padding: 8px;
   max-width: 320px;
   margin-bottom: 16px;
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border: 2px solid rgb(0, 153, 255);
+  border-radius: 4px;
+}
+#search-box:focus {
+  outline: none;
+  border-color: green;
+}
+
+.country-list,
+.country-description,
+.languages-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+/* boxes */
+.country-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+}
+.country-heading-box {
+  display: flex;
+  align-items: baseline;
+  padding: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: whitesmoke;
+  min-width: 308px;
+}
+
+.country-thumb {
+  display: flex;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: azure;
+  min-width: 308px;
+}
+/* image */
+.flag {
+  margin-right: 12px;
+}
+
+.country-description {
+  font-size: 24px;
+}
+.country-description__title {
+  margin-right: 9px;
+}
+.country-heading {
+  font-size: 50px;
+}
+.languages-list {
+  display: inline-flex;
 }
